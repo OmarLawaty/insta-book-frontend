@@ -6,3 +6,9 @@ export interface User {
   email: string;
   isAdmin: boolean;
 }
+
+export interface ErrorResponse {
+  message: string;
+  error: string;
+  code: null;
+}
