@@ -1,11 +1,11 @@
-import { Metadata } from 'next';
 import Image from 'next/image';
+import { Metadata } from 'next';
 
-import { LoginForm, Link } from '@/components';
+import { Link, SignupForm } from '@/components';
 
 export const metadata: Metadata = {
-  title: 'Instabook | Login',
-  description: 'Login to Instabook',
+  title: 'Instabook | Signup',
+  description: 'Signup to Instabook',
 };
 
 export default function Page() {
@@ -15,18 +15,18 @@ export default function Page() {
         <Image src='/assets/images/logo.svg' width={173} height={36} alt='logo' />
 
         <div className='flex flex-col gap-2'>
-          <h2 className='h3-bold md:h2-bold'>Log in to your account</h2>
-          <p className='text-light-3 small-medium md:base-regular'>Welcome back! Please enter your details.</p>
+          <h2 className='h3-bold md:h2-bold'>Create a new account</h2>
+          <p className='text-light-3 small-medium md:base-regular'>Welcome! Please enter your details.</p>
         </div>
       </header>
 
       <div className='flex flex-col gap-7'>
-        <LoginForm />
+        <SignupForm />
 
         <footer className='small-regular text-light-2 text-center'>
-          Don&apos;t have an account already?
-          <Link href='/signup' className='text-primary-500 small-semibold ms-1' prefetch keepSearchParams>
-            Signup here
+          Already have an account?
+          <Link href='/login' className='text-primary-500 small-semibold ms-1' prefetch keepSearchParams>
+            Login here
           </Link>
         </footer>
       </div>

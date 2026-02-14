@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { instabook, User } from '@/api';
 
@@ -7,9 +7,20 @@ type Response = User | null;
 
 const queryKey = ['me'] as const;
 
-const queryFn = () => instabook.get<Response, AxiosResponse<Response>>('/auth/me').then(res => res.data);
+const queryFn = (cookie?: string) =>
+  instabook
+    .get<Response, AxiosResponse<Response>>('/auth/me', {
+      headers: cookie ? { Cookie: cookie } : undefined,
+    })
+    .then(res => res.data);
 
-export const useMeQuery = () => useQuery({ queryKey, queryFn });
+export const useMeQuery = () => useQuery({ queryKey, queryFn: () => queryFn });
+
+export const useInvalidateMeQuery = () => {
+  const queryClient = useQueryClient();
+
+  return () => queryClient.invalidateQueries({ queryKey });
+};
 
 useMeQuery.queryKey = queryKey;
 useMeQuery.queryFn = queryFn;

@@ -7,18 +7,22 @@ import { instabook } from '@/api';
 import type { User, ErrorResponse } from '@/api';
 import { useLogin } from '../useLogin';
 
-interface LoginParams {
+interface SignupParams {
   email: string;
   password: string;
+  firstName: string;
+  lastName: string;
+  birthday: string;
 }
 
-export const useLoginMutation = (options?: UseMutationOptions<User, AxiosError<ErrorResponse>, LoginParams>) => {
+export const useSignupMutation = (options?: UseMutationOptions<User, AxiosError<ErrorResponse>, SignupParams>) => {
   const { login } = useLogin();
 
-  return useMutation<User, AxiosError<ErrorResponse>, LoginParams>({
+  return useMutation<User, AxiosError<ErrorResponse>, SignupParams>({
     ...options,
     mutationFn: data =>
-      instabook.post<User, AxiosResponse<User>, LoginParams>('/auth/login', data).then(res => res.data),
+      instabook.post<User, AxiosResponse<User>, SignupParams>('/auth/signup', data).then(res => res.data),
+
     onSuccess: (...props) => {
       login();
 

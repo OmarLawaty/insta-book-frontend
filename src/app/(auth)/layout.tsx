@@ -3,7 +3,9 @@ import Image from 'next/image';
 export default function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <main className='w-full flex bg-black'>
-      <section className='flex flex-1 justify-center items-center flex-col py-10 text-white'>{children}</section>
+      <section className='flex flex-1 justify-center items-center py-10 text-white'>
+        <div className='flex flex-1 flex-col w-full max-w-[clamp(20rem,39.5vw,24rem)] gap-4'>{children}</div>
+      </section>
 
       <div className='flex flex-1 min-h-screen h-auto max-h-screen'>
         <Image

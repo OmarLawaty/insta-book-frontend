@@ -3,27 +3,30 @@
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { useLoginMutation } from '@/hooks';
-import { loginSchema, LoginSchema } from '@/api';
+import { useSignupMutation } from '@/hooks';
+import { signupSchema, SignupSchema } from '@/api';
 import { Button, Input, Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components';
 
-const defaultValues: LoginSchema = {
+const defaultValues: SignupSchema = {
   email: '',
   password: '',
+  firstName: '',
+  lastName: '',
+  birthday: '',
 };
 
-export const LoginForm = () => {
-  const form = useForm<LoginSchema>({
+export const SignupForm = () => {
+  const form = useForm<SignupSchema>({
     defaultValues,
     mode: 'onChange',
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(signupSchema),
   });
-  const loginMutation = useLoginMutation();
+  const signupMutation = useSignupMutation();
 
-  const onSubmit: SubmitHandler<LoginSchema> = async data => {
-    if (!form.formState.isValid || loginMutation.isPending) return;
+  const onSubmit: SubmitHandler<SignupSchema> = async data => {
+    if (!form.formState.isValid || signupMutation.isPending) return;
 
-    loginMutation.mutate(data, {
+    signupMutation.mutate(data, {
       onError: error => {
         if (error.response?.status === 400)
           form.setError('password', {
@@ -43,6 +46,38 @@ export const LoginForm = () => {
     <Form {...form}>
       <form className='flex flex-col gap-5' onSubmit={form.handleSubmit(onSubmit, console.warn)}>
         <div className='flex flex-col gap-5'>
+          <FormField
+            name='firstName'
+            control={form.control}
+            render={({ field }) => (
+              <FormItem {...field}>
+                <FormLabel className='shad-form_label'>First Name</FormLabel>
+
+                <FormControl>
+                  <Input type='text' autoComplete='given-name' placeholder='John' className='shad-input' {...field} />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            name='lastName'
+            control={form.control}
+            render={({ field }) => (
+              <FormItem {...field}>
+                <FormLabel className='shad-form_label'>Last Name</FormLabel>
+
+                <FormControl>
+                  <Input type='text' autoComplete='family-name' placeholder='Doe' className='shad-input' {...field} />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <FormField
             name='email'
             control={form.control}
@@ -86,15 +121,37 @@ export const LoginForm = () => {
               </FormItem>
             )}
           />
+
+          <FormField
+            name='birthday'
+            control={form.control}
+            render={({ field }) => (
+              <FormItem {...field}>
+                <FormLabel className='shad-form_label'>Birthday</FormLabel>
+
+                <FormControl>
+                  <Input
+                    type='date'
+                    autoComplete='bday'
+                    placeholder='Select your birthday'
+                    className='shad-input'
+                    {...field}
+                  />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
 
         <Button
           type='submit'
           className='shad-button_primary'
-          disabled={!form.formState.isValid || loginMutation.isSuccess}
-          isLoading={loginMutation.isPending}
+          disabled={!form.formState.isValid || signupMutation.isSuccess}
+          isLoading={signupMutation.isPending}
         >
-          Login
+          Sign Up
         </Button>
       </form>
     </Form>
