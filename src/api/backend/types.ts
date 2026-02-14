@@ -12,3 +12,7 @@ export interface ErrorResponse {
   error: string;
   code: null;
 }
+
+export interface ForgotPasswordResponse {
+  authId: string;
+}

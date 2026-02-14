@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { useLoginMutation } from '@/hooks';
 import { loginSchema, LoginSchema } from '@/api';
-import { Button, Input, Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components';
+import { Button, Input, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Link } from '@/components';
 
 const defaultValues: LoginSchema = {
   email: '',
@@ -88,14 +88,25 @@ export const LoginForm = () => {
           />
         </div>
 
-        <Button
-          type='submit'
-          className='shad-button_primary'
-          disabled={!form.formState.isValid || loginMutation.isSuccess}
-          isLoading={loginMutation.isPending}
-        >
-          Login
-        </Button>
+        <div className='flex flex-col gap-2 w-full'>
+          <Button
+            type='submit'
+            className='shad-button_primary w-full'
+            disabled={!form.formState.isValid || loginMutation.isSuccess}
+            isLoading={loginMutation.isPending}
+          >
+            Login
+          </Button>
+
+          <Link
+            href='/forgot-password'
+            className='text-primary-500 small-semibold ms-1 self-end'
+            prefetch
+            keepSearchParams
+          >
+            Forgot your password?
+          </Link>
+        </div>
       </form>
     </Form>
   );
