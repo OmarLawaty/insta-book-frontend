@@ -29,11 +29,6 @@ export const SignupForm = () => {
     signupMutation.mutate(data, {
       onError: error => {
         if (error.response?.status === 400)
-          form.setError('password', {
-            type: 'custom',
-            message: error.response?.data.message,
-          });
-        if (error.response?.status === 404)
           form.setError('email', {
             type: 'custom',
             message: error.response?.data.message,

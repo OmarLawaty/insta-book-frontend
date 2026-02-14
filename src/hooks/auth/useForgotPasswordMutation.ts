@@ -8,8 +8,8 @@ import type { ForgotPasswordResponse, ErrorResponse, ForgotPasswordSchema } from
 
 export const useForgotPasswordMutation = (
   options?: UseMutationOptions<ForgotPasswordResponse, AxiosError<ErrorResponse>, ForgotPasswordSchema>,
-) => {
-  return useMutation<ForgotPasswordResponse, AxiosError<ErrorResponse>, ForgotPasswordSchema>({
+) =>
+  useMutation<ForgotPasswordResponse, AxiosError<ErrorResponse>, ForgotPasswordSchema>({
     ...options,
     mutationFn: data =>
       instabook
@@ -19,8 +19,4 @@ export const useForgotPasswordMutation = (
           ForgotPasswordSchema
         >('/auth/forgot-password', data)
         .then(res => res.data),
-    onSuccess: (...props) => {
-      options?.onSuccess?.(...props);
-    },
   });
-};
