@@ -5,3 +5,5 @@ export const getSearchParams = () => {
 };
 
 export const isClient = () => typeof window !== 'undefined';
+
+export const getCombinedUserName = (firstName: string, lastName: string) => `${firstName} ${lastName}`;

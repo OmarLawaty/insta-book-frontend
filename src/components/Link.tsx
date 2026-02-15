@@ -5,7 +5,7 @@ import NextLink from 'next/link';
 
 import { cn } from '@/lib/utils';
 import { Button } from './Button';
-import { getSearchParams } from '@/lib/helpers';
+import { getSearchParams } from '@/helpers';
 
 type NextLinkProps = ComponentProps<typeof NextLink>;
 

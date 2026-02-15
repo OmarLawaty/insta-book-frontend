@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
-import { getSearchParams } from '@/lib/helpers';
+import { getSearchParams } from '@/helpers';
 import { useInvalidateCurrentUserQuery, useCurrentUserQuery } from './auth/useCurrentUserQuery';
 
 export const useLogin = () => {

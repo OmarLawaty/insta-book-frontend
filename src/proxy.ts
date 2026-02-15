@@ -1,15 +1,11 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { cookies } from 'next/headers';
 
 import { useCurrentUserQuery } from './hooks';
 import { guestOnlyRoutes } from './proxy/routes';
 
 export const proxy = async (req: NextRequest) => {
-  const cookieStore = cookies();
-  const cookieHeader = (await cookieStore).toString();
-
-  const isTokenValid = !!(await useCurrentUserQuery.queryFn(cookieHeader).catch(() => false));
+  const isTokenValid = !!(await useCurrentUserQuery.queryFn().catch(() => false));
   const isGuestOnlyPath = guestOnlyRoutes.some(path => req.nextUrl.pathname.startsWith(path));
 
   if (isGuestOnlyPath && isTokenValid) return NextResponse.redirect(new URL('/', req.url));

@@ -18,7 +18,7 @@ import {
   InputOTPSlot,
 } from '@/components';
 import { REGEXP_ONLY_DIGITS } from 'input-otp';
-import { getSearchParams } from '@/lib/helpers';
+import { getSearchParams } from '@/helpers';
 import { useRouter } from 'next/navigation';
 
 const defaultValues: VerifyOTPSchema = {

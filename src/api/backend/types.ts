@@ -1,8 +1,7 @@
-export interface User {
+export interface AuthUserResponse {
   id: number;
   firstName: string;
   lastName: string;
-  birthday: string;
   email: string;
   isAdmin: boolean;
 }
@@ -15,4 +14,14 @@ export interface ErrorResponse {
 
 export interface ForgotPasswordResponse {
   authId: string;
+}
+
+export interface User extends Omit<AuthUserResponse, 'isAdmin'> {
+  birthday: string;
+  bio: string;
+  imageUrl: string;
+  imageId: string;
+  postIds: string[];
+  likedIds: string[];
+  savedIds: string[];
 }
