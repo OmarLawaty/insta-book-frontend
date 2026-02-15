@@ -3,13 +3,13 @@
 import { useRouter } from 'next/navigation';
 
 import { getSearchParams } from '@/lib/helpers';
-import { useInvalidateMeQuery, useMeQuery } from './useMeQuery';
+import { useInvalidateCurrentUserQuery, useCurrentUserQuery } from './auth/useCurrentUserQuery';
 
 export const useLogin = () => {
   const router = useRouter();
 
-  const meQuery = useMeQuery();
-  const invalidateMeQuery = useInvalidateMeQuery();
+  const meQuery = useCurrentUserQuery();
+  const invalidateMeQuery = useInvalidateCurrentUserQuery();
 
   const isLoggedIn = !!meQuery.data;
 

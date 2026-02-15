@@ -5,22 +5,22 @@ import { instabook, User } from '@/api';
 
 type Response = User | null;
 
-const queryKey = ['me'] as const;
+const queryKey = ['current-user'] as const;
 
 const queryFn = (cookie?: string) =>
   instabook
-    .get<Response, AxiosResponse<Response>>('/auth/me', {
+    .get<Response, AxiosResponse<Response>>('/auth/current-user', {
       headers: cookie ? { Cookie: cookie } : undefined,
     })
     .then(res => res.data);
 
-export const useMeQuery = () => useQuery({ queryKey, queryFn: () => queryFn });
+export const useCurrentUserQuery = () => useQuery({ queryKey, queryFn: () => queryFn });
 
-export const useInvalidateMeQuery = () => {
+export const useInvalidateCurrentUserQuery = () => {
   const queryClient = useQueryClient();
 
   return () => queryClient.invalidateQueries({ queryKey });
 };
 
-useMeQuery.queryKey = queryKey;
-useMeQuery.queryFn = queryFn;
+useCurrentUserQuery.queryKey = queryKey;
+useCurrentUserQuery.queryFn = queryFn;
