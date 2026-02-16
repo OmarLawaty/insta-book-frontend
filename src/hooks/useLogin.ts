@@ -3,15 +3,13 @@
 import { useRouter } from 'next/navigation';
 
 import { getSearchParams } from '@/helpers';
-import { useInvalidateCurrentUserQuery, useCurrentUserQuery } from './auth/useCurrentUserQuery';
+import { useInvalidateIsLoggedInQuery, useIsLoggedInQuery } from './auth/useIsLoggedInQuery';
 
 export const useLogin = () => {
   const router = useRouter();
 
-  const meQuery = useCurrentUserQuery();
-  const invalidateMeQuery = useInvalidateCurrentUserQuery();
-
-  const isLoggedIn = !!meQuery.data;
+  const isLoggedInQuery = useIsLoggedInQuery();
+  const invalidateMeQuery = useInvalidateIsLoggedInQuery();
 
   const login = async () => {
     await invalidateMeQuery();
@@ -31,6 +29,6 @@ export const useLogin = () => {
   return {
     login,
     logout,
-    isLoggedIn,
+    isLoggedIn: isLoggedInQuery.data ?? false,
   };
 };

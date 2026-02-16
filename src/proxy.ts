@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-import { useCurrentUserQuery } from './hooks';
+import { useIsLoggedInQuery } from './hooks';
 import { guestOnlyRoutes } from './proxy/routes';
 
 export const proxy = async (req: NextRequest) => {
-  const isTokenValid = !!(await useCurrentUserQuery.queryFn().catch(() => false));
+  const isTokenValid = !!(await useIsLoggedInQuery.queryFn());
   const isGuestOnlyPath = guestOnlyRoutes.some(path => req.nextUrl.pathname.startsWith(path));
 
   if (isGuestOnlyPath && isTokenValid) return NextResponse.redirect(new URL('/', req.url));
