@@ -1,6 +1,6 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
-import { Sidebar } from '@/components';
+import { Bottombar, Sidebar, Topbar } from '@/components';
 import { useMeQuery } from '@/hooks';
 
 export default async function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -10,10 +10,13 @@ export default async function Layout({ children }: Readonly<{ children: React.Re
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <main className='w-full flex bg-black'>
+      <main className='w-full md:flex bg-black'>
+        <Topbar />
         <Sidebar />
 
-        {children}
+        <section className='flex flex-1 h-vh'>{children}</section>
+
+        <Bottombar />
       </main>
     </HydrationBoundary>
   );
