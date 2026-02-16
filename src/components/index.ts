@@ -1,4 +1,5 @@
 export * from './auth';
+export * from './posts';
 export * from './ui';
 export * from './Providers';
 export * from './Button';
@@ -6,3 +7,4 @@ export * from './Link';
 export * from './Sidebar';
 export * from './Topbar';
 export * from './Bottombar';
+export * from './FileUploader';

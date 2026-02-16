@@ -1,4 +1,2 @@
-export * from './loginSchema';
-export * from './signupSchema';
-export * from './forgotPasswordSchema';
-export * from './verifyOTPSchema';
+export * from './auth';
+export * from './posts';

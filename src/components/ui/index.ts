@@ -3,3 +3,4 @@ export * from './form';
 export * from './label';
 export * from './input';
 export * from './input-otp';
+export * from './textarea';

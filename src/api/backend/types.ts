@@ -25,3 +25,21 @@ export interface User extends Omit<AuthUserResponse, 'isAdmin'> {
   likedIds: string[];
   savedIds: string[];
 }
+
+export interface UploadFileResponse {
+  id: number;
+  url: string;
+  publicId: string;
+  createdAt: string;
+}
+
+export interface Post {
+  id: number;
+  caption: string;
+  tags: string[];
+  imageUrl: string;
+  location: string;
+  creator: Pick<User, 'id' | 'firstName' | 'lastName' | 'imageUrl'>;
+  likeIds: number[];
+  saveIds: number[];
+}
