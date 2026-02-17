@@ -7,7 +7,7 @@ import { Button } from '../Button';
 import { Link } from '../Link';
 import { LikePostButton } from '../LikePostButton';
 import { SavePostButton } from '../SavePostButton';
-import { useMeQuery, usePostQuery } from '@/hooks';
+import { useDeletePostMutation, useMeQuery, usePostQuery } from '@/hooks';
 import { Spinner } from '../ui';
 import { getCombinedUserName } from '@/helpers';
 import { formatDistance } from 'date-fns';
@@ -22,6 +22,7 @@ export const PostDetails = ({ id }: PostDetailsProps) => {
 
   const meQuery = useMeQuery();
   const postQuery = usePostQuery(id);
+  const deletePostMutation = useDeletePostMutation();
 
   const isPending = postQuery.isPending || meQuery.isPending;
   if (isPending) return <Spinner />;
@@ -32,11 +33,21 @@ export const PostDetails = ({ id }: PostDetailsProps) => {
   const user = meQuery.data;
   const post = postQuery.data;
 
+  const onDelete = () => {
+    deletePostMutation.mutate(post.id, {
+      onSuccess: () => router.push('/'),
+    });
+  };
+
   return (
     <div className='post_details-container'>
       <div className='hidden md:flex max-w-5xl w-full'>
-        <Button onClick={router.back} variant='ghost' className='shad-button_ghost'>
-          <Image src={'/assets/icons/back.svg'} alt='back' width={24} height={24} />
+        <Button
+          onClick={router.back}
+          variant='ghost'
+          className='shad-button_ghost'
+          icon={<Image src={'/assets/icons/back.svg'} alt='back' width={24} height={24} />}
+        >
           <p className='small-medium lg:base-medium'>Back</p>
         </Button>
       </div>
@@ -80,12 +91,11 @@ export const PostDetails = ({ id }: PostDetailsProps) => {
               </Link>
 
               <Button
-                onClick={() => {}}
+                onClick={onDelete}
                 variant='ghost'
                 className={cn('ost_details-delete_btn', user.id !== post.creator.id && 'hidden')}
-              >
-                <Image src={'/assets/icons/delete.svg'} alt='delete' width={24} height={24} />
-              </Button>
+                icon={<Image src='/assets/icons/delete.svg' alt='delete' width={24} height={24} />}
+              />
             </div>
           </div>
           <hr className='border w-full' style={{ borderColor: 'color-mix(in oklab, #1f1f22 80%, transparent)' }} />

@@ -4,3 +4,4 @@ export * from './useUpdatePostMutation';
 export * from './useRecentPostsQuery';
 export * from './useSavePostMutation';
 export * from './useLikePostMutation';
+export * from './useDeletePostMutation';
