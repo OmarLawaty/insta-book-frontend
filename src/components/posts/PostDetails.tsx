@@ -106,13 +106,6 @@ export const PostDetails = ({ id }: PostDetailsProps) => {
           </div>
         </div>
       </div>
-
-      <div className='w-full max-w-5xl'>
-        <hr className='border w-full' style={{ borderColor: 'color-mix(in oklab, #1f1f22 80%, transparent)' }} />
-
-        <h3 className='body-bold md:h3-bold w-full my-10'>More Related Posts</h3>
-        {/* {isUserPostLoading || !relatedPosts ? <Loader /> : <GridPostList posts={relatedPosts} />} */}
-      </div>
     </div>
   );
 };

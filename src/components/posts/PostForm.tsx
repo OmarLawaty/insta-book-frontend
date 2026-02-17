@@ -16,7 +16,7 @@ import {
   Textarea,
   FileUploader,
 } from '@/components';
-import { useCreatePostMutation, useUpdatePostMutation, useUploadImageMutation } from '@/hooks';
+import { useCreatePostMutation, usePostQuery, useUpdatePostMutation, useUploadImageMutation } from '@/hooks';
 import { useRouter } from 'next/navigation';
 import { AxiosError } from 'axios';
 
@@ -38,13 +38,21 @@ const defaultValues: PostSchema = {
 
 export const PostForm = (props: CreatePostFormProps) => {
   const router = useRouter();
+
+  const postQuery = usePostQuery(props.type === 'update' ? props.post.id : Number(), {
+    enabled: props.type === 'update',
+    placeholderData: props.type === 'update' ? props.post : undefined,
+  });
+
+  const post = postQuery.data;
+
   const postData =
     props.type === 'update'
       ? {
-          caption: props.post.caption,
-          tags: props.post.tags.join(', '),
+          caption: post!.caption,
+          tags: post!.tags.join(', '),
           file: new File([], ''),
-          location: props.post.location,
+          location: post!.location,
         }
       : undefined;
 
@@ -82,9 +90,9 @@ export const PostForm = (props: CreatePostFormProps) => {
       onSettled: res => {
         if (props.type !== 'update') return;
 
-        const params = { ...data, imageId: res?.publicId ?? props.post.image.publicId, tags };
+        const params = { ...data, imageId: res?.publicId ?? post!.image.publicId, tags };
 
-        updatePostMutation.mutate({ ...params, id: props.post.id }, { onSuccess: ({ id }) => onSuccess(id), onError });
+        updatePostMutation.mutate({ ...params, id: post!.id }, { onSuccess: ({ id }) => onSuccess(id), onError });
       },
     });
   };
@@ -117,7 +125,7 @@ export const PostForm = (props: CreatePostFormProps) => {
                 <FormLabel className='shad-form_label'>Add Photos</FormLabel>
                 <FormControl>
                   <FileUploader
-                    mediaUrl={props.type === 'update' ? props.post.image.url : undefined}
+                    mediaUrl={props.type === 'update' ? post!.image.url : undefined}
                     {...field}
                     disabled={
                       uploadImageMutation.isPending || createPostMutation.isPending || updatePostMutation.isPending
