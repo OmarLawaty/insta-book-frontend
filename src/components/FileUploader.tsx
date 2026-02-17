@@ -4,45 +4,33 @@ import { useCallback, useState } from 'react';
 import { FileWithPath, useDropzone } from 'react-dropzone';
 import Image from 'next/image';
 
-import { Button, Spinner } from '@/components';
-import { UploadFileResponse } from '@/api';
+import { Button } from '@/components';
 import { convertFileToUrl } from '@/helpers';
-import { useUploadImageMutation } from '@/hooks';
 import { cn } from '@/lib/utils';
 
-type FileUploaderProps = {
-  onUpload: (response: UploadFileResponse) => void;
-  onUploadStart?: () => void;
+interface FileUploaderProps {
+  onChange: (response: File) => void;
   mediaUrl?: string;
-};
+  disabled?: boolean;
+}
 
-export const FileUploader = ({ onUpload, onUploadStart, mediaUrl = '' }: FileUploaderProps) => {
+export const FileUploader = ({ onChange, mediaUrl = '', disabled = false }: FileUploaderProps) => {
   const [fileUrl, setFileUrl] = useState<string>(mediaUrl);
-
-  const uploadImageMutation = useUploadImageMutation();
-  const isUploading = uploadImageMutation.isPending;
 
   const onDrop = useCallback(
     (acceptedFiles: FileWithPath[]) => {
-      if (isUploading) return;
-
       const file = acceptedFiles[0];
       if (!file) return;
 
-      onUploadStart?.();
-      uploadImageMutation.mutate(file, {
-        onSuccess: response => {
-          onUpload(response);
-          setFileUrl(convertFileToUrl(file));
-        },
-      });
+      setFileUrl(convertFileToUrl(file));
+      onChange(file);
     },
-    [isUploading, onUpload, onUploadStart, uploadImageMutation],
+    [onChange],
   );
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
-    disabled: isUploading,
+    disabled: disabled,
     accept: {
       'image/*': ['.png', '.jpeg', '.jpg'],
     },
@@ -53,17 +41,11 @@ export const FileUploader = ({ onUpload, onUploadStart, mediaUrl = '' }: FileUpl
       {...getRootProps()}
       className={cn(
         'relative flex flex-center flex-col bg-dark-3 rounded-xl',
-        isUploading ? 'cursor-wait' : 'cursor-pointer',
+        disabled ? 'cursor-not-allowed' : 'cursor-pointer',
       )}
-      aria-busy={isUploading}
+      aria-busy={disabled}
     >
-      <input {...getInputProps()} className='cursor-pointer' disabled={isUploading} />
-
-      {uploadImageMutation.isPending && (
-        <div className='absolute inset-0 z-10 flex items-center justify-center rounded-xl bg-black/60'>
-          <Spinner />
-        </div>
-      )}
+      <input {...getInputProps()} className='cursor-pointer' disabled={disabled} />
 
       {fileUrl ? (
         <>
@@ -79,7 +61,7 @@ export const FileUploader = ({ onUpload, onUploadStart, mediaUrl = '' }: FileUpl
           <h3 className='base-medium text-light-2 mb-2 mt-6'>Drag photo here</h3>
           <p className='text-light-4 small-regular mb-6'>SVG, PNG, JPG</p>
 
-          <Button type='button' className='shad-button_dark_4' isDisabled={isUploading}>
+          <Button type='button' className='shad-button_dark_4' disabled={disabled}>
             Select from computer
           </Button>
         </div>

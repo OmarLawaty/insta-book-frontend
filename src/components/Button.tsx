@@ -8,18 +8,23 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isDisabled?: boolean;
   icon?: React.ReactNode;
   variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
+  size?: 'default' | 'xs' | 'sm' | 'lg' | 'icon' | 'icon-xs' | 'icon-sm' | 'icon-lg';
 }
 
-export const Button = ({ children, isLoading, isDisabled, className, icon, ...props }: ButtonProps) => {
+export const Button = ({ children, isLoading, isDisabled, className, icon, size, ...props }: ButtonProps) => {
   if (isLoading)
     return (
-      <ShadCNButton className={cn('opacity-80 cursor-not-allowed', className)} disabled {...props}>
+      <ShadCNButton
+        className={cn('opacity-80 cursor-not-allowed flex justify-center items-center', className)}
+        disabled
+        {...props}
+      >
         <Spinner />
       </ShadCNButton>
     );
 
   return (
-    <ShadCNButton disabled={isDisabled} className={cn('cursor-pointer', className)} {...props}>
+    <ShadCNButton size={size} disabled={isDisabled} className={cn('cursor-pointer', className)} {...props}>
       {icon}
 
       {children}

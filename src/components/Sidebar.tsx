@@ -31,7 +31,7 @@ export const Sidebar = () => {
             <Spinner />
           </div>
         ) : (
-          <Link href={`/profile/${meQuery.data.id}`} className='flex gap-3 items-center'>
+          <Link href={`/profile`} className='flex gap-3 items-center'>
             <Image
               src={meQuery.data.imageUrl || '/assets/icons/profile-placeholder.svg'}
               alt='profile'

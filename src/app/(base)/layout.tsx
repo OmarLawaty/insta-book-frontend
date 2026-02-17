@@ -14,7 +14,7 @@ export default async function Layout({ children }: Readonly<{ children: React.Re
         <Topbar />
         <Sidebar />
 
-        <section className='flex flex-1 h-vh'>{children}</section>
+        <section className='flex flex-1 h-dvh'>{children}</section>
 
         <Bottombar />
       </main>

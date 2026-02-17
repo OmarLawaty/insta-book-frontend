@@ -18,7 +18,7 @@ export const postSchema = z.object({
         error: 'Each tag must be between 1 and 100 characters, separated by commas',
       },
     ),
-  imageId: z.string().min(1, { message: 'Please upload an image' }),
+  file: z.custom<File>(value => value instanceof File, { message: 'Please upload a valid file' }),
   location: z
     .string()
     .min(1, { message: 'Location must be at least 1 character' })
