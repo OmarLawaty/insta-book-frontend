@@ -4,11 +4,11 @@ import Image from 'next/image';
 import { getCombinedUserName } from '@/helpers';
 import { Button } from '../Button';
 
-export const UserCard = ({ id, imageUrl, firstName, lastName, likesCount }: TopUser) => {
+export const UserCard = ({ id, image, firstName, lastName, likesCount }: TopUser) => {
   return (
     <Link href={`/profile/${id}`} className='user-card'>
       <Image
-        src={imageUrl || '/assets/icons/profile-placeholder.svg'}
+        src={image?.url || '/assets/icons/profile-placeholder.svg'}
         alt='creator'
         className='rounded-full w-14 h-14'
         width={56}

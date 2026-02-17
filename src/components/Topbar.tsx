@@ -27,7 +27,7 @@ export const Topbar = () => {
 
           <Link href={`/profile/${user.id}`} className='flex-center gap-3'>
             <Image
-              src={user.imageUrl || '/assets/icons/profile-placeholder.svg'}
+              src={user.image?.url || '/assets/icons/profile-placeholder.svg'}
               alt='profile'
               className='h-8 w-8 rounded-full'
               width={32}

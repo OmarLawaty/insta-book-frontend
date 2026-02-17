@@ -33,7 +33,7 @@ export const Sidebar = () => {
         ) : (
           <Link href={`/profile`} className='flex gap-3 items-center'>
             <Image
-              src={meQuery.data.imageUrl || '/assets/icons/profile-placeholder.svg'}
+              src={meQuery.data.image?.url || '/assets/icons/profile-placeholder.svg'}
               alt='profile'
               width={56}
               height={56}
