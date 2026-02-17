@@ -2,7 +2,10 @@ import axios from 'axios';
 
 import { isClient } from '@/helpers';
 
-export const instabook = axios.create({ baseURL: 'http://localhost:3030', withCredentials: true });
+export const instabook = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3030',
+  withCredentials: true,
+});
 
 // On the server, automatically forward the incoming request cookies to the backend.
 instabook.interceptors.request.use(async config => {
