@@ -68,7 +68,7 @@ export const PostForm = (props: CreatePostFormProps) => {
           message: error.response?.data.message,
         });
     };
-    const onSuccess = () => router.push('/');
+    const onSuccess = (id: number) => router.push(`/posts/${id}`);
     const tags = data.tags.split(',').map(tag => tag.trim());
 
     uploadImageMutation.mutate(data.file, {
@@ -77,14 +77,14 @@ export const PostForm = (props: CreatePostFormProps) => {
 
         const params = { ...data, imageId: res.publicId, tags };
 
-        createPostMutation.mutate(params, { onSuccess, onError });
+        createPostMutation.mutate(params, { onSuccess: ({ id }) => onSuccess(id), onError });
       },
       onSettled: res => {
         if (props.type !== 'update') return;
 
         const params = { ...data, imageId: res?.publicId ?? props.post.image.publicId, tags };
 
-        updatePostMutation.mutate({ ...params, id: props.post.id }, { onSuccess, onError });
+        updatePostMutation.mutate({ ...params, id: props.post.id }, { onSuccess: ({ id }) => onSuccess(id), onError });
       },
     });
   };
