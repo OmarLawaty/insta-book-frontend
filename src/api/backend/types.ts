@@ -19,11 +19,14 @@ export interface ForgotPasswordResponse {
 export interface User extends Omit<AuthUserResponse, 'isAdmin'> {
   birthday: string;
   bio: string;
-  imageUrl: string;
-  imageId: string;
+  image: UploadFileResponse | null;
   postIds: string[];
   likedIds: string[];
   savedIds: string[];
+}
+
+export interface TopUser extends User {
+  likesCount: number;
 }
 
 export interface UploadFileResponse {
@@ -33,13 +36,23 @@ export interface UploadFileResponse {
   createdAt: string;
 }
 
+export interface CreatePostParams {
+  caption: string;
+  tags: string[];
+  imageId: string;
+  location: string;
+}
+
 export interface Post {
   id: number;
   caption: string;
   tags: string[];
-  imageUrl: string;
+  image: UploadFileResponse;
   location: string;
-  creator: Pick<User, 'id' | 'firstName' | 'lastName' | 'imageUrl'>;
-  likeIds: number[];
-  saveIds: number[];
+  creator: Pick<User, 'id' | 'firstName' | 'lastName'> & { imageUrl: string | null };
+  likes: number;
+  createdAt: string;
+  updatedAt: string;
+  isLiked: boolean;
+  isSaved: boolean;
 }
