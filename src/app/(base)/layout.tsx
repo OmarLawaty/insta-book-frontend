@@ -10,11 +10,11 @@ export default async function Layout({ children }: Readonly<{ children: React.Re
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <main className='w-full md:flex bg-black'>
+      <main className='flex w-full flex-col bg-black h-dvh md:flex-row'>
         <Topbar />
         <Sidebar />
 
-        <section className='flex flex-1 h-dvh'>{children}</section>
+        <section className='flex flex-1'>{children}</section>
 
         <Bottombar />
       </main>

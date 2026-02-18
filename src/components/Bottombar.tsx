@@ -9,7 +9,7 @@ export const Bottombar = () => {
   const pathname = usePathname();
 
   return (
-    <section className='bottom-bar'>
+    <footer className='bottom-bar'>
       {bottombarLinks.map(link => {
         const isActive = pathname === link.route;
         return (
@@ -30,7 +30,7 @@ export const Bottombar = () => {
           </Link>
         );
       })}
-    </section>
+    </footer>
   );
 };
 

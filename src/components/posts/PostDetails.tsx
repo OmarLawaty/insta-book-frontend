@@ -63,7 +63,7 @@ export const PostDetails = ({ id }: PostDetailsProps) => {
         />
 
         <div className='post_details-info'>
-          <div className='flex-between w-full'>
+          <div className='flex-col xs:flex-row gap-5 flex-between w-full'>
             <Link href={`/profile/${post.creator.id}`} className='flex items-center gap-3'>
               <Image
                 src={post.creator.imageUrl || '/assets/icons/profile-placeholder.svg'}
@@ -85,7 +85,7 @@ export const PostDetails = ({ id }: PostDetailsProps) => {
               </div>
             </Link>
 
-            <div className='flex-center gap-4'>
+            <div className='flex xs:flex-center gap-4 justify-between xs:justify-center xs:w-auto w-full p-4 xs:p-0 items-center'>
               <Link href={`/posts/${post.id}/edit`} className={cn(user.id !== post.creator.id && 'hidden')}>
                 <Image src={'/assets/icons/edit.svg'} alt='edit' width={24} height={24} />
               </Link>

@@ -14,8 +14,8 @@ export const Topbar = () => {
 
   const user = meQuery.data;
   return (
-    <section className='topbar'>
-      <div className='flex-between py-4 px-5'>
+    <header className='topbar'>
+      <div className='flex-between py-4 px-5 '>
         <Link href='/' className='flex gap-3 items-center'>
           <Image src='/assets/images/logo.svg' alt='logo' width={130} height={325} />
         </Link>
@@ -36,6 +36,6 @@ export const Topbar = () => {
           </Link>
         </div>
       </div>
-    </section>
+    </header>
   );
 };
