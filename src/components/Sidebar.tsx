@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Link } from './Link';
 import { Spinner } from './ui';
 import { Button } from './Button';
-import { useMeQuery, useSignoutMutation } from '@/hooks';
+import { useLogin, useMeQuery } from '@/hooks';
 import { getCombinedUserName } from '@/helpers';
 import { usePathname } from 'next/navigation';
 
@@ -12,7 +12,7 @@ export const Sidebar = () => {
   const pathname = usePathname();
 
   const meQuery = useMeQuery();
-  const signoutMutation = useSignoutMutation();
+  const { logout } = useLogin();
 
   // If there's an error fetching the current user, we can assume the user is not authenticated.
   if (meQuery.isError) return null;
@@ -68,7 +68,7 @@ export const Sidebar = () => {
         </ul>
       </div>
 
-      <Button variant='ghost' className='shad-button_ghost' onClick={() => signoutMutation.mutate()}>
+      <Button variant='ghost' className='shad-button_ghost' onClick={logout}>
         <Image src='/assets/icons/logout.svg' alt='logout' width={24} height={24} />
 
         <p className='small-medium lg:base-medium'>Logout</p>

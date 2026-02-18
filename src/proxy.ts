@@ -5,12 +5,14 @@ import { useIsLoggedInQuery } from './hooks';
 import { guestOnlyRoutes } from './proxy/routes';
 
 export const proxy = async (req: NextRequest) => {
-  const isTokenValid = !!(await useIsLoggedInQuery.queryFn());
+  const isLoggedIn = !!(await useIsLoggedInQuery.queryFn());
   const isGuestOnlyPath = guestOnlyRoutes.some(path => req.nextUrl.pathname.startsWith(path));
 
-  if (isGuestOnlyPath && isTokenValid) return NextResponse.redirect(new URL('/', req.url));
+  console.log('isLoggedIn', isLoggedIn);
 
-  const isGuestAccessingProtectedRoute = !isGuestOnlyPath && !isTokenValid;
+  if (isGuestOnlyPath && isLoggedIn) return NextResponse.redirect(new URL('/', req.url));
+
+  const isGuestAccessingProtectedRoute = !isGuestOnlyPath && !isLoggedIn;
   if (isGuestAccessingProtectedRoute) {
     const fromPath = encodeURI(req.nextUrl.pathname + req.nextUrl.search);
     if (!!fromPath) {

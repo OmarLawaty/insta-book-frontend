@@ -3,11 +3,11 @@
 import Image from 'next/image';
 import { Link } from './Link';
 import { Button } from './Button';
-import { useMeQuery, useSignoutMutation } from '@/hooks';
+import { useLogin, useMeQuery } from '@/hooks';
 
 export const Topbar = () => {
   const meQuery = useMeQuery();
-  const signoutMutation = useSignoutMutation();
+  const { logout } = useLogin();
 
   // If there's an error fetching the current user, we can assume the user is not authenticated.
   if (meQuery.isPending || meQuery.isError) return null;
@@ -21,7 +21,7 @@ export const Topbar = () => {
         </Link>
 
         <div className='flex gap-4'>
-          <Button variant='ghost' className='shad-button_ghost' onClick={() => signoutMutation.mutate()}>
+          <Button variant='ghost' className='shad-button_ghost' onClick={logout}>
             <Image src='/assets/icons/logout.svg' alt='logout' width={20} height={20} />
           </Button>
 
