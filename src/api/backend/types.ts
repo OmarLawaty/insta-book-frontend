@@ -1,4 +1,9 @@
 export interface AuthUserResponse {
+  accessToken: string;
+  user: AuthUser;
+}
+
+export interface AuthUser {
   id: number;
   firstName: string;
   lastName: string;
@@ -16,7 +21,7 @@ export interface ForgotPasswordResponse {
   authId: string;
 }
 
-export interface User extends Omit<AuthUserResponse, 'isAdmin'> {
+export interface User extends Omit<AuthUser, 'isAdmin'> {
   birthday: string;
   bio: string;
   image: UploadFileResponse | null;

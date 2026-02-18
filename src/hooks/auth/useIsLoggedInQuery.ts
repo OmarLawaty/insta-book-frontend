@@ -1,15 +1,13 @@
 import { AxiosResponse } from 'axios';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { instabook, AuthUserResponse } from '@/api';
-
-type Response = AuthUserResponse | null;
+import { instabook } from '@/api';
 
 const queryKey = ['is-logged-in'] as const;
 
 const queryFn = () =>
   instabook
-    .get<Response, AxiosResponse<Response>>('/auth')
+    .get<boolean, AxiosResponse<boolean>>('/auth')
     .then(res => res.data)
     .catch(() => false);
 
