@@ -4,11 +4,11 @@ import type { AxiosError, AxiosResponse } from 'axios';
 import { type UseMutationOptions, useMutation } from '@tanstack/react-query';
 
 import { instabook } from '@/api';
-import type { ErrorResponse } from '@/api';
+import type { ErrorResponse, Post } from '@/api';
 
-export const useSavePostMutation = (options?: UseMutationOptions<null, AxiosError<ErrorResponse>, number>) =>
-  useMutation<null, AxiosError<ErrorResponse>, number>({
+export const useSavePostMutation = (options?: UseMutationOptions<Post, AxiosError<ErrorResponse>, number>) =>
+  useMutation<Post, AxiosError<ErrorResponse>, number>({
     ...options,
     mutationFn: postId =>
-      instabook.post<null, AxiosResponse<null>, number>(`/posts/save/${postId}`).then(res => res.data),
+      instabook.post<Post, AxiosResponse<Post>, number>(`/posts/save/${postId}`).then(res => res.data),
   });

@@ -8,8 +8,6 @@ export const proxy = async (req: NextRequest) => {
   const isLoggedIn = !!(await useIsLoggedInQuery.queryFn());
   const isGuestOnlyPath = guestOnlyRoutes.some(path => req.nextUrl.pathname.startsWith(path));
 
-  console.log('isLoggedIn', isLoggedIn);
-
   if (isGuestOnlyPath && isLoggedIn) return NextResponse.redirect(new URL('/', req.url));
 
   const isGuestAccessingProtectedRoute = !isGuestOnlyPath && !isLoggedIn;

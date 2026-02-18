@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import { useQuery, useQueryClient, UseQueryOptions, type QueryFunctionContext } from '@tanstack/react-query';
 import { instabook, Post } from '@/api';
 
-const queryKey = (postId: number) => ['post', postId] as const;
+const queryKey = (postId: number) => ['post', String(postId)] as const;
 
 type QueryKey = ReturnType<typeof queryKey>;
 
@@ -18,6 +18,12 @@ export const useInvalidatePostQuery = (postId: number) => {
   const queryClient = useQueryClient();
 
   return () => queryClient.invalidateQueries({ queryKey: queryKey(postId) });
+};
+
+export const useSetPostQueryData = () => {
+  const queryClient = useQueryClient();
+
+  return (postId: number, post: Post) => queryClient.setQueryData(queryKey(postId), post);
 };
 
 usePostQuery.queryKey = queryKey;
