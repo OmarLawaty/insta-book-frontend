@@ -61,3 +61,8 @@ export interface Post {
   isLiked: boolean;
   isSaved: boolean;
 }
+
+export interface InfiniteQueryResponse<T> {
+  data: T[];
+  nextCursor: string | null;
+}

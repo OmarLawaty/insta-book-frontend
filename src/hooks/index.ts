@@ -5,3 +5,4 @@ export * from './useLogin';
 export * from './useCounter';
 export * from './useMeQuery';
 export * from './useUploadImageMutation';
+export * from './useInfiniteScroll';
