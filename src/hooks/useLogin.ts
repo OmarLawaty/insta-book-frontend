@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import { getSearchParams } from '@/helpers';
 import { useInvalidateIsLoggedInQuery, useIsLoggedInQuery } from './auth/useIsLoggedInQuery';
+import { removeAccessToken, setAccessToken } from '@/api/backend/helpers';
 
 export const useLogin = () => {
   const router = useRouter();
@@ -11,7 +12,9 @@ export const useLogin = () => {
   const isLoggedInQuery = useIsLoggedInQuery();
   const invalidateMeQuery = useInvalidateIsLoggedInQuery();
 
-  const login = async () => {
+  const login = async (accessToken: string) => {
+    setAccessToken(accessToken);
+
     await invalidateMeQuery();
 
     const fromEncodedPath = getSearchParams().get('from');
@@ -21,6 +24,8 @@ export const useLogin = () => {
   };
 
   const logout = async () => {
+    removeAccessToken();
+
     await invalidateMeQuery();
 
     router.replace('/login');

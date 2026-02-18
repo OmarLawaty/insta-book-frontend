@@ -20,7 +20,7 @@ export const useLoginMutation = (
         .post<AuthUserResponse, AxiosResponse<AuthUserResponse>, LoginSchema>('/auth/login', data)
         .then(res => res.data),
     onSuccess: (...props) => {
-      login();
+      login(props[0].accessToken);
 
       options?.onSuccess?.(...props);
     },
