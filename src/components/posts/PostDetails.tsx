@@ -109,7 +109,7 @@ export const PostDetails = ({ id }: PostDetailsProps) => {
               ))}
             </ul>
           </div>
-          <div className='flex justify-between items-center z-20 w-full'>
+          <div className='flex justify-between items-center gap-5 z-20 w-full'>
             <LikePostButton {...post} />
 
             <SavePostButton postId={post.id} saved={post.isSaved} />

@@ -70,7 +70,7 @@ export const PostCard = (props: PostCardProps) => {
         />
       </Link>
 
-      <div className='flex justify-between items-center z-20'>
+      <div className='flex justify-between items-center gap-5 z-20'>
         <LikePostButton {...props} />
 
         <SavePostButton postId={props.id} saved={props.isSaved} />

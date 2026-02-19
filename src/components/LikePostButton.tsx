@@ -26,7 +26,7 @@ export const LikePostButton = (props: Post) => {
       }}
       isLoading={likePostMutation.isPending}
       icon={<Image src={iconSrc} alt='like' width={20} height={20} />}
-      className='flex gap-2 mr-5'
+      className='flex gap-2'
     >
       <p className='small-medium lg:base-medium'>{post.likes}</p>
     </Button>

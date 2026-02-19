@@ -11,3 +11,4 @@ export * from './Bottombar';
 export * from './FileUploader';
 export * from './SavePostButton';
 export * from './LikePostButton';
+export * from './SearchParamsInput';
