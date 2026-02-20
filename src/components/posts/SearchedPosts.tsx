@@ -24,11 +24,11 @@ export const SearchedPosts = () => {
   });
 
   if (isPending) return <Spinner className='flex-1 w-full h-full size-20' />;
-  if (isError) return <p className='text-light-4 mt-10 text-center w-full'>Failed to load posts</p>;
+  if (isError) return <p className='text-light-4 text-center w-full'>Failed to load posts</p>;
 
   const posts = data.pages?.flatMap(({ data }) => data) ?? [];
   return (
-    <div className='flex flex-wrap gap-9 w-full max-w-5xl flex-1'>
+    <div className='flex flex-col gap-12 w-full max-w-5xl flex-1'>
       {posts.length === 0 ? (
         <p className='text-light-4 m-auto text-center w-full'>No results found</p>
       ) : (
@@ -41,18 +41,18 @@ export const SearchedPosts = () => {
 
       {hasNextPage && isFetchingNextPage && <Spinner className='self-center size-8 mt-10' />}
 
-      {!hasNextPage && !searchValue && <p className='text-light-4 mt-10 text-center w-full'>End of posts</p>}
+      {!hasNextPage && !searchValue && <p className='text-light-4 text-center w-full'>End of posts</p>}
     </div>
   );
 };
 
-type GridPostListProps = {
+type GridPostProps = {
   post: Post;
   showUser?: boolean;
   showStats?: boolean;
 };
 
-const GridPost = ({ post, showUser = true, showStats = true }: GridPostListProps) => (
+const GridPost = ({ post, showUser = true, showStats = true }: GridPostProps) => (
   <li key={post.id} className='relative min-w-80 h-80'>
     <Link href={`/posts/${post.id}`} className='grid-post_link'>
       <Image src={post.image.url} alt='post' className='h-full w-full object-cover' width={500} height={500} />

@@ -96,7 +96,7 @@ const sidebarLinks: NavLink[] = [
   },
   {
     imgURL: '/assets/icons/people.svg',
-    route: '/all-users',
+    route: '/people',
     label: 'People',
   },
   {

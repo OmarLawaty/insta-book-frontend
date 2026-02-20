@@ -2,7 +2,7 @@
 
 import { useTopUsersQuery } from '@/hooks';
 import { Spinner } from '../ui';
-import { UserCard } from './UserCard';
+import { UserCard } from '../users';
 
 export const TopCreators = () => {
   const topUsersQuery = useTopUsersQuery();

@@ -1,5 +1,6 @@
 export * from './auth';
 export * from './posts';
+export * from './users';
 export * from './home';
 export * from './ui';
 export * from './Providers';
