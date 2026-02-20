@@ -6,3 +6,4 @@ export * from './useSavePostMutation';
 export * from './useLikePostMutation';
 export * from './useDeletePostMutation';
 export * from './usePostsInfiniteQuery';
+export * from './useSavedPostsInfiniteQuery';

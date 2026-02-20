@@ -10,9 +10,10 @@ import { Post } from '@/api';
 interface SavePostParams {
   postId: number;
   saved?: boolean;
+  onSaveStatusChange?: () => void;
 }
 
-export const SavePostButton = ({ postId, saved }: SavePostParams) => {
+export const SavePostButton = ({ postId, saved, onSaveStatusChange }: SavePostParams) => {
   const [post, setPost] = useState<Post | undefined>(undefined);
 
   const setPostQueryData = useSetPostQueryData();
@@ -20,6 +21,7 @@ export const SavePostButton = ({ postId, saved }: SavePostParams) => {
     onSuccess: updatedPost => {
       setPost(updatedPost);
       setPostQueryData(postId, updatedPost);
+      onSaveStatusChange?.();
     },
   });
 

@@ -101,7 +101,7 @@ const sidebarLinks: NavLink[] = [
   },
   {
     imgURL: '/assets/icons/bookmark.svg',
-    route: '/saved',
+    route: '/posts/saved',
     label: 'Saved',
   },
   {

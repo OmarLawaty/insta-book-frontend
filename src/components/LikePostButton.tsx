@@ -7,7 +7,11 @@ import { useLikePostMutation, useSetPostQueryData } from '@/hooks';
 import { Button } from './Button';
 import { Post } from '@/api';
 
-export const LikePostButton = (props: Post) => {
+interface LikePostButtonProps extends Post {
+  onLikeStatusChange?: () => void;
+}
+
+export const LikePostButton = ({ onLikeStatusChange, ...props }: LikePostButtonProps) => {
   const [post, setPost] = useState<Post>(props);
 
   const setPostQueryData = useSetPostQueryData();
@@ -15,6 +19,7 @@ export const LikePostButton = (props: Post) => {
     onSuccess: updatedPost => {
       setPost(updatedPost);
       setPostQueryData(props.id, updatedPost);
+      onLikeStatusChange?.();
     },
   });
 
