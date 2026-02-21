@@ -3,7 +3,6 @@
 import Image from 'next/image';
 
 import { Post } from '@/api';
-import { useMeQuery } from '@/hooks';
 import { Link } from '../Link';
 import { SavePostButton } from '../SavePostButton';
 import { getCombinedUserName } from '@/helpers';
@@ -11,13 +10,7 @@ import { LikePostButton } from '../LikePostButton';
 import { formatDistance } from 'date-fns';
 import { cn } from '@/lib/utils';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-interface PostCardProps extends Post {}
-
-export const PostCard = (props: PostCardProps) => {
-  const meQuery = useMeQuery();
-
-  return (
+export const PostCard = (props: Post) => (
     <div className='post-card'>
       <div className='flex-between'>
         <div className='flex items-center gap-3'>
@@ -44,7 +37,7 @@ export const PostCard = (props: PostCardProps) => {
           </div>
         </div>
 
-        <Link href={`/posts/${props.id}/edit`} className={cn(meQuery.data?.id !== props.creator.id && 'hidden')}>
+      <Link href={`/posts/${props.id}/edit`} className={cn(!props.creator.isMe && 'hidden')}>
           <Image src={'/assets/icons/edit.svg'} alt='edit' width={20} height={20} />
         </Link>
       </div>
@@ -77,4 +70,3 @@ export const PostCard = (props: PostCardProps) => {
       </div>
     </div>
   );
-};

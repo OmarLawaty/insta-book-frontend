@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 
 import { PostDetails } from '@/components';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
-import { useMeQuery, usePostQuery } from '@/hooks';
+import { usePostQuery } from '@/hooks';
 import { PagePropsWithParams } from '@/app/types';
 import { notFound } from 'next/navigation';
 import { getCombinedUserName } from '@/helpers';
@@ -35,7 +35,6 @@ export default async function Page({ params }: PostPageProps) {
       queryKey: usePostQuery.queryKey(id),
       queryFn: usePostQuery.queryFn,
     }),
-    queryClient.prefetchQuery(useMeQuery),
   ]);
 
   if (!post) return notFound();

@@ -7,7 +7,7 @@ import { Button } from '../Button';
 import { Link } from '../Link';
 import { LikePostButton } from '../LikePostButton';
 import { SavePostButton } from '../SavePostButton';
-import { useDeletePostMutation, useMeQuery, usePostQuery } from '@/hooks';
+import { useDeletePostMutation, usePostQuery } from '@/hooks';
 import { Spinner } from '../ui';
 import { getCombinedUserName } from '@/helpers';
 import { formatDistance } from 'date-fns';
@@ -20,17 +20,13 @@ interface PostDetailsProps {
 export const PostDetails = ({ id }: PostDetailsProps) => {
   const router = useRouter();
 
-  const meQuery = useMeQuery();
   const postQuery = usePostQuery(id);
   const deletePostMutation = useDeletePostMutation();
 
-  const isPending = postQuery.isPending || meQuery.isPending;
-  if (isPending) return <Spinner />;
+  if (postQuery.isPending) return <Spinner />;
 
-  const isError = postQuery.isError || meQuery.isError;
-  if (isError) return <p className='text-center'>Failed to load post details. Please try again.</p>;
+  if (postQuery.isError) return <p className='text-center'>Failed to load post details. Please try again.</p>;
 
-  const user = meQuery.data;
   const post = postQuery.data;
 
   const onDelete = () => {
@@ -64,7 +60,7 @@ export const PostDetails = ({ id }: PostDetailsProps) => {
 
         <div className='post_details-info'>
           <div className='flex-col xs:flex-row gap-5 flex-between w-full'>
-            <Link href={`/profile/${post.creator.id}`} className='flex items-center gap-3'>
+            <Link href={`/profiles/${post.creator.id}`} className='flex items-center gap-3'>
               <Image
                 src={post.creator.imageUrl || '/assets/icons/profile-placeholder.svg'}
                 alt='creator'
@@ -86,14 +82,14 @@ export const PostDetails = ({ id }: PostDetailsProps) => {
             </Link>
 
             <div className='flex xs:flex-center gap-4 justify-between xs:justify-center xs:w-auto w-full p-4 xs:p-0 items-center'>
-              <Link href={`/posts/${post.id}/edit`} className={cn(user.id !== post.creator.id && 'hidden')}>
+              <Link href={`/posts/${post.id}/edit`} className={cn(!post.creator.isMe && 'hidden')}>
                 <Image src={'/assets/icons/edit.svg'} alt='edit' width={24} height={24} />
               </Link>
 
               <Button
                 onClick={onDelete}
                 variant='ghost'
-                className={cn('ost_details-delete_btn', user.id !== post.creator.id && 'hidden')}
+                className={cn('ost_details-delete_btn', !post.creator.isMe && 'hidden')}
                 icon={<Image src='/assets/icons/delete.svg' alt='delete' width={24} height={24} />}
               />
             </div>

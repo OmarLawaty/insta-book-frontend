@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import { PostForm } from '@/components';
 import Image from 'next/image';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
-import { useMeQuery, usePostQuery } from '@/hooks';
+import { usePostQuery } from '@/hooks';
 import { PagePropsWithParams } from '@/app/types';
 import { notFound } from 'next/navigation';
 
@@ -19,15 +19,14 @@ export default async function Page({ params }: PostPageProps) {
 
   const queryClient = new QueryClient();
 
-  const [post, me] = await Promise.all([
+  const [post] = await Promise.all([
     queryClient.fetchQuery({
       queryKey: usePostQuery.queryKey(id),
       queryFn: usePostQuery.queryFn,
     }),
-    queryClient.fetchQuery(useMeQuery),
   ]);
 
-  if (!post || me.id !== post.creator.id) return notFound();
+  if (!post || !post.creator.isMe) return notFound();
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
