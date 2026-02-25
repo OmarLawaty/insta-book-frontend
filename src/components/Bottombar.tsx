@@ -47,7 +47,7 @@ export const bottombarLinks = [
   },
   {
     imgURL: '/assets/icons/bookmark.svg',
-    route: '/saved',
+    route: '/posts/saved',
     label: 'Saved',
   },
   {
