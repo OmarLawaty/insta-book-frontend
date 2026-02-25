@@ -41,7 +41,9 @@ export const Sidebar = () => {
             />
             <div className='flex flex-col'>
               <p className='body-bold'>{getCombinedUserName(meQuery.data.firstName, meQuery.data.lastName)}</p>
-              <p className='text-xs font-normal text-light-3'>{meQuery.data.email}</p>
+              <p className='text-xs font-normal text-light-3' title={meQuery.data.email}>
+                {meQuery.data.email.length > 21 ? meQuery.data.email.substring(0, 21) + '...' : meQuery.data.email}
+              </p>
             </div>
           </Link>
         )}

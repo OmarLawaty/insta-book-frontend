@@ -6,7 +6,10 @@ import { useMeQuery } from '@/hooks';
 export default async function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(useMeQuery);
+  await queryClient.prefetchQuery({
+    queryKey: useMeQuery.queryKey(),
+    queryFn: useMeQuery.queryFn,
+  });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

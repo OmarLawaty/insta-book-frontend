@@ -9,3 +9,5 @@ export const isClient = () => typeof window !== 'undefined';
 export const getCombinedUserName = (firstName: string, lastName: string) => `${firstName} ${lastName}`;
 
 export const convertFileToUrl = (file: File) => URL.createObjectURL(file);
+
+export const getProfileUrl = (id: number, isMe: boolean) => (isMe ? '/profile' : `/profiles/${id}`);

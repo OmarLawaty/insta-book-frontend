@@ -1,18 +1,28 @@
 import { AxiosResponse } from 'axios';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { QueryFunctionContext, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { instabook, User } from '@/api';
+import { FullUser, instabook, PartialUser } from '@/api';
 
-const queryKey = ['me'] as const;
+interface MeQueryProps {
+  isFull?: boolean;
+}
 
-const queryFn = () => instabook.get<User, AxiosResponse<User>>('/users/me').then(res => res.data);
+type MeQueryResult<T extends boolean> = T extends true ? FullUser : PartialUser;
 
-export const useMeQuery = () => useQuery({ queryKey, queryFn });
+const queryKey = (isFull?: boolean) => ['me', !!isFull] as const;
 
+type QueryKey = ReturnType<typeof queryKey>;
+
+const queryFn = <T extends boolean = false>({ queryKey: [, isFull] }: QueryFunctionContext<QueryKey>) =>
+  instabook
+    .get<MeQueryResult<T>, AxiosResponse<MeQueryResult<T>>>(`/users/me/${isFull ? 'full' : ''}`)
+    .then(res => res.data);
+
+export const useMeQuery = ({ isFull = false }: MeQueryProps = {}) => useQuery({ queryKey: queryKey(isFull), queryFn });
 export const useInvalidateMeQuery = () => {
   const queryClient = useQueryClient();
 
-  return () => queryClient.invalidateQueries({ queryKey });
+  return (isFull: boolean = false) => queryClient.invalidateQueries({ queryKey: queryKey(isFull) });
 };
 
 useMeQuery.queryKey = queryKey;

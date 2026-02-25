@@ -9,7 +9,7 @@ import { LikePostButton } from '../LikePostButton';
 import { SavePostButton } from '../SavePostButton';
 import { useDeletePostMutation, usePostQuery } from '@/hooks';
 import { Spinner } from '../ui';
-import { getCombinedUserName } from '@/helpers';
+import { getCombinedUserName, getProfileUrl } from '@/helpers';
 import { formatDistance } from 'date-fns';
 import { cn } from '@/lib/utils';
 
@@ -60,7 +60,7 @@ export const PostDetails = ({ id }: PostDetailsProps) => {
 
         <div className='post_details-info'>
           <div className='flex-col xs:flex-row gap-5 flex-between w-full'>
-            <Link href={`/profiles/${post.creator.id}`} className='flex items-center gap-3'>
+            <Link href={getProfileUrl(post.creator.id, post.creator.isMe)} className='flex items-center gap-3'>
               <Image
                 src={post.creator.imageUrl || '/assets/icons/profile-placeholder.svg'}
                 alt='creator'

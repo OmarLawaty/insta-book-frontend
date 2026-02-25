@@ -27,7 +27,7 @@ export const SavedPosts = () => {
             post={post}
             showUser={false}
             showLike={false}
-            showSave={true}
+            showSave
             onStatusChange={updatePostData}
           />
         ))}
