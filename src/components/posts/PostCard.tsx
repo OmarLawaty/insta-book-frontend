@@ -18,9 +18,11 @@ export const PostCard = (props: Post) => (
           <Image
             src={props.creator.imageUrl || '/assets/icons/profile-placeholder.svg'}
             alt='creator'
-            className='w-12 lg:h-12 rounded-full'
+            className='w-12 lg:h-12 rounded-full object-cover'
             width={48}
             height={48}
+            preload
+            loading='eager'
           />
         </Link>
 
@@ -60,6 +62,8 @@ export const PostCard = (props: Post) => (
         className='post-card_img'
         width={500}
         height={500}
+        preload
+        loading='eager'
       />
     </Link>
 

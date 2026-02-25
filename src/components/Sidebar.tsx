@@ -37,7 +37,9 @@ export const Sidebar = () => {
               alt='profile'
               width={56}
               height={56}
-              className='h-14 w-14 rounded-full'
+              className='h-14 w-14 rounded-full object-cover'
+              preload
+              loading='eager'
             />
             <div className='flex flex-col'>
               <p className='body-bold'>{getCombinedUserName(meQuery.data.firstName, meQuery.data.lastName)}</p>

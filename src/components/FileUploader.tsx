@@ -50,7 +50,15 @@ export const FileUploader = ({ onChange, mediaUrl = '', disabled = false }: File
       {fileUrl ? (
         <>
           <div className='flex flex-1 justify-center w-full p-5 lg:p-10'>
-            <Image src={fileUrl} alt='image' className='file_uploader-img' width={500} height={500} />
+            <Image
+              src={fileUrl}
+              alt='image'
+              className='file_uploader-img object-cover object-center'
+              width={500}
+              height={500}
+              preload
+              loading='eager'
+            />
           </div>
           <p className='file_uploader-label'>Click or drag photo to replace</p>
         </>

@@ -42,6 +42,14 @@ export interface Creator extends BasicUser {
   imageUrl: string | null;
 }
 
+export interface UpdateMeParams {
+  firstName: string;
+  lastName: string;
+  birthday: string;
+  imageId: string;
+  bio: string;
+}
+
 export interface ErrorResponse {
   message: string;
   error: string;

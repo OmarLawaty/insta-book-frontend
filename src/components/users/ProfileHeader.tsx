@@ -12,9 +12,11 @@ export const ProfileHeader = (props: FullUser) => (
       <Image
         src={props.image?.url || '/assets/icons/profile-placeholder.svg'}
         alt='profile'
-        className='w-28 h-28 lg:h-36 lg:w-36 rounded-full'
+        className='w-28 h-28 lg:h-36 lg:w-36 rounded-full object-cover'
         width={144}
         height={144}
+        preload
+        loading='eager'
       />
       <div className='flex flex-col flex-1 justify-between md:mt-2'>
         <div className='flex flex-col w-full'>

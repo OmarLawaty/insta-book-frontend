@@ -29,9 +29,11 @@ export const Topbar = () => {
             <Image
               src={user.image?.url || '/assets/icons/profile-placeholder.svg'}
               alt='profile'
-              className='h-8 w-8 rounded-full'
+              className='h-8 w-8 rounded-full object-cover'
               width={32}
               height={32}
+              preload
+              loading='eager'
             />
           </Link>
         </div>

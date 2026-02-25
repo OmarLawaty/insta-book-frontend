@@ -26,7 +26,7 @@ export const GridPost = ({
       <Image
         src={post.image.url}
         alt='post'
-        className='h-full w-full object-cover'
+        className='h-full w-full'
         width={500}
         height={500}
         preload
@@ -40,9 +40,11 @@ export const GridPost = ({
           <Image
             src={post.creator.imageUrl || '/assets/icons/profile-placeholder.svg'}
             alt='creator'
-            className='w-8 h-8 rounded-full'
+            className='w-8 h-8 rounded-full object-cover'
             width={32}
             height={32}
+            preload
+            loading='eager'
           />
 
           <p className='line-clamp-1'>{getCombinedUserName(post.creator.firstName, post.creator.lastName)}</p>

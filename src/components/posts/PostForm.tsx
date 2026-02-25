@@ -67,7 +67,7 @@ export const PostForm = (props: CreatePostFormProps) => {
   const updatePostMutation = useUpdatePostMutation();
 
   const onSubmit: SubmitHandler<PostSchema> = async data => {
-    if (!form.formState.isValid || createPostMutation.isPending) return;
+    if (!form.formState.isValid || createPostMutation.isPending || updatePostMutation.isPending) return;
 
     const onError = (error: AxiosError<ErrorResponse>) => {
       if (error.response?.status === 404)
