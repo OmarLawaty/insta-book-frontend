@@ -5,7 +5,17 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { useSignupMutation } from '@/hooks';
 import { passwordValidation, signupSchema, SignupSchema } from '@/api';
-import { Button, Input, Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components';
+import {
+  Button,
+  Input,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  PasswordInput,
+} from '@/components';
 
 const defaultValues: SignupSchema = {
   email: '',
@@ -103,13 +113,7 @@ export const SignupForm = () => {
                 <FormLabel className='shad-form_label'>Password</FormLabel>
 
                 <FormControl>
-                  <Input
-                    type='password'
-                    autoComplete='new-password'
-                    placeholder='********'
-                    className='shad-input'
-                    {...field}
-                  />
+                  <PasswordInput autoComplete='new-password' placeholder='********' className='shad-input' {...field} />
                 </FormControl>
 
                 {passwordValidation

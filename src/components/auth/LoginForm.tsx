@@ -5,7 +5,18 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { useLoginMutation } from '@/hooks';
 import { loginSchema, LoginSchema } from '@/api';
-import { Button, Input, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Link } from '@/components';
+import {
+  Button,
+  Input,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  Link,
+  PasswordInput,
+} from '@/components';
 
 const defaultValues: LoginSchema = {
   email: '',
@@ -73,9 +84,8 @@ export const LoginForm = () => {
                 <FormLabel className='shad-form_label'>Password</FormLabel>
 
                 <FormControl>
-                  <Input
-                    type='password'
-                    autoComplete='new-password'
+                  <PasswordInput
+                    autoComplete='current-password'
                     placeholder='********'
                     className='shad-input'
                     {...field}

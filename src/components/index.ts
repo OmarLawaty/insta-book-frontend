@@ -13,3 +13,4 @@ export * from './FileUploader';
 export * from './SavePostButton';
 export * from './LikePostButton';
 export * from './SearchParamsInput';
+export * from './PasswordInput';
