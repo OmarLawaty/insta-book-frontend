@@ -7,9 +7,11 @@ import { Button } from './Button';
 import { useLogin, useMeQuery } from '@/hooks';
 import { getCombinedUserName } from '@/helpers';
 import { usePathname } from 'next/navigation';
+import { useRouter } from 'nextjs-toploader/app';
 
 export const Sidebar = () => {
   const pathname = usePathname();
+  const router = useRouter();
 
   const meQuery = useMeQuery();
   const { logout, isLoggedIn } = useLogin();
@@ -80,19 +82,17 @@ export const Sidebar = () => {
         </ul>
       </div>
 
-      {isLoggedIn ? (
-        <Button variant='ghost' className='shad-button_ghost' onClick={logout}>
-          <Image src='/assets/icons/logout.svg' alt='logout' width={24} height={24} />
+      <Button variant='ghost' className='shad-button_ghost' onClick={isLoggedIn ? logout : () => router.push('/login')}>
+        <Image
+          src='/assets/icons/logout.svg'
+          alt={isLoggedIn ? 'logout' : 'login'}
+          style={{ rotate: isLoggedIn ? '0deg' : '180deg' }}
+          width={24}
+          height={24}
+        />
 
-          <p className='small-medium lg:base-medium'>Logout</p>
-        </Button>
-      ) : (
-        <Link href='/login' className='shad-button_ghost py-2 px-4'>
-          <Image src='/assets/icons/logout.svg' alt='login' style={{ rotate: '180deg' }} width={24} height={24} />
-
-          <p className='small-medium lg:base-medium'>Login</p>
-        </Link>
-      )}
+        <p className='small-medium lg:base-medium'>{isLoggedIn ? 'Logout' : 'Login'}</p>
+      </Button>
     </nav>
   );
 };

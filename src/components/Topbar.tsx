@@ -4,13 +4,16 @@ import Image from 'next/image';
 import { Link } from './Link';
 import { Button } from './Button';
 import { useLogin, useMeQuery } from '@/hooks';
+import { useRouter } from 'nextjs-toploader/app';
 
 export const Topbar = () => {
+  const router = useRouter();
+
   const meQuery = useMeQuery();
-  const { logout } = useLogin();
+  const { logout, isLoggedIn } = useLogin();
 
   // If there's an error fetching the current user, we can assume the user is not authenticated.
-  if (meQuery.isPending || meQuery.isError) return null;
+  if ((meQuery.isPending || meQuery.isError) && isLoggedIn) return null;
 
   const user = meQuery.data;
   return (
@@ -21,13 +24,27 @@ export const Topbar = () => {
         </Link>
 
         <div className='flex gap-4'>
-          <Button variant='ghost' className='shad-button_ghost' onClick={logout}>
-            <Image src='/assets/icons/logout.svg' alt='logout' width={20} height={20} />
+          <Button
+            variant='ghost'
+            className='shad-button_ghost'
+            onClick={isLoggedIn ? logout : () => router.push('/login')}
+          >
+            <Image
+              src='/assets/icons/logout.svg'
+              alt={isLoggedIn ? 'logout' : 'login'}
+              style={{ rotate: isLoggedIn ? '0deg' : '180deg' }}
+              width={20}
+              height={20}
+            />
           </Button>
 
           <Link href='/profile' className='flex-center gap-3'>
             <Image
-              src={user.image?.url || '/assets/icons/profile-placeholder.svg'}
+              src={
+                isLoggedIn
+                  ? user!.image?.url || '/assets/icons/profile-placeholder.svg'
+                  : '/assets/icons/profile-placeholder.svg'
+              }
               alt='profile'
               className='h-8 w-8 rounded-full object-cover'
               width={32}
