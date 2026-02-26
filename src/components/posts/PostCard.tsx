@@ -22,6 +22,7 @@ export const PostCard = (props: Post) => (
             width={48}
             height={48}
             preload
+            fetchPriority='high'
             loading='eager'
           />
         </Link>
@@ -40,7 +41,7 @@ export const PostCard = (props: Post) => (
       </div>
 
       <Link href={`/posts/${props.id}/edit`} className={cn(!props.creator.isMe && 'hidden')}>
-        <Image src={'/assets/icons/edit.svg'} alt='edit' width={20} height={20} />
+        <Image src='/assets/icons/edit.svg' alt='edit' width={20} height={20} />
       </Link>
     </div>
 
@@ -63,6 +64,7 @@ export const PostCard = (props: Post) => (
         width={500}
         height={500}
         preload
+        fetchPriority='high'
         loading='eager'
       />
     </Link>

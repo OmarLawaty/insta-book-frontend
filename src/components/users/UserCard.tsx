@@ -19,6 +19,7 @@ export const UserCard = ({ id, image, firstName, lastName, likesCount, isMe }: T
         width={56}
         height={56}
         preload
+        fetchPriority='high'
         loading='eager'
       />
 

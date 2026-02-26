@@ -50,6 +50,7 @@ export const Topbar = () => {
               width={32}
               height={32}
               preload
+              fetchPriority='high'
               loading='eager'
             />
           </Link>

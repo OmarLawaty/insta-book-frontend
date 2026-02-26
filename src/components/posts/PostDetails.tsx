@@ -42,7 +42,7 @@ export const PostDetails = ({ id }: PostDetailsProps) => {
           onClick={router.back}
           variant='ghost'
           className='shad-button_ghost'
-          icon={<Image src={'/assets/icons/back.svg'} alt='back' width={24} height={24} />}
+          icon={<Image src='/assets/icons/back.svg' alt='back' width={24} height={24} />}
         >
           <p className='small-medium lg:base-medium'>Back</p>
         </Button>
@@ -50,6 +50,7 @@ export const PostDetails = ({ id }: PostDetailsProps) => {
       <div className='post_details-card'>
         <Image
           loading='eager'
+          fetchPriority='high'
           preload
           src={post.image.url}
           alt='creator'
@@ -68,6 +69,7 @@ export const PostDetails = ({ id }: PostDetailsProps) => {
                 width={48}
                 height={48}
                 preload
+                fetchPriority='high'
                 loading='eager'
               />
               <div className='flex gap-1 flex-col'>
@@ -85,7 +87,7 @@ export const PostDetails = ({ id }: PostDetailsProps) => {
 
             <div className='flex xs:flex-center gap-4 justify-between xs:justify-center xs:w-auto w-full p-4 xs:p-0 items-center'>
               <Link href={`/posts/${post.id}/edit`} className={cn(!post.creator.isMe && 'hidden')}>
-                <Image src={'/assets/icons/edit.svg'} alt='edit' width={24} height={24} />
+                <Image src='/assets/icons/edit.svg' alt='edit' width={24} height={24} />
               </Link>
 
               <Button

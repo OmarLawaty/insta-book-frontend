@@ -22,6 +22,7 @@ export const ProfileHeader = (props: FullUser) => {
           width={144}
           height={144}
           preload
+          fetchPriority='high'
           loading='eager'
         />
         <div className='flex flex-col flex-1 justify-between md:mt-2'>
@@ -44,7 +45,7 @@ export const ProfileHeader = (props: FullUser) => {
         <div className='flex justify-center gap-4'>
           <div className={cn(!props.isMe && 'hidden')}>
             <Link href={`/profile/edit`} className='h-12 bg-dark-4 px-5 text-light-1 flex-center gap-2 rounded-lg'>
-              <Image src={'/assets/icons/edit.svg'} alt='edit' width={20} height={20} />
+              <Image src='/assets/icons/edit.svg' alt='edit' width={20} height={20} />
               <p className='flex whitespace-nowrap small-medium'>Edit Profile</p>
             </Link>
           </div>

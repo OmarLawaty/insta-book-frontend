@@ -45,6 +45,7 @@ export const Sidebar = () => {
               height={56}
               className='h-14 w-14 rounded-full object-cover'
               preload
+              fetchPriority='high'
               loading='eager'
             />
             <div className='flex flex-col'>

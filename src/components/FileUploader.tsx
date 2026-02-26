@@ -57,6 +57,7 @@ export const FileUploader = ({ onChange, mediaUrl = '', disabled = false }: File
               width={500}
               height={500}
               preload
+              fetchPriority='high'
               loading='eager'
             />
           </div>

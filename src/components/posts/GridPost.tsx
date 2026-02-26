@@ -30,6 +30,7 @@ export const GridPost = ({
         width={500}
         height={500}
         preload
+        fetchPriority='high'
         loading='eager'
       />
     </Link>
@@ -44,6 +45,7 @@ export const GridPost = ({
             width={32}
             height={32}
             preload
+            fetchPriority='high'
             loading='eager'
           />
 

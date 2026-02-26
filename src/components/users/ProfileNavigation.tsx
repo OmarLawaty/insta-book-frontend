@@ -27,7 +27,7 @@ export const ProfileNavigation = ({ id, isMe = false }: ProfileNavigationProps) 
         className={cn('profile-tab rounded-l-lg', isPostsActive && 'bg-dark-3!')}
         prefetch={isLikedPostsActive}
       >
-        <Image src={'/assets/icons/posts.svg'} alt='posts' width={20} height={20} />
+        <Image src='/assets/icons/posts.svg' alt='posts' width={20} height={20} />
         Posts
       </Link>
 
@@ -36,7 +36,7 @@ export const ProfileNavigation = ({ id, isMe = false }: ProfileNavigationProps) 
         className={cn('profile-tab rounded-r-lg', isLikedPostsActive && 'bg-dark-3!')}
         prefetch={isPostsActive}
       >
-        <Image src={'/assets/icons/like.svg'} alt='like' width={20} height={20} />
+        <Image src='/assets/icons/like.svg' alt='like' width={20} height={20} />
         Liked Posts
       </Link>
     </div>
