@@ -14,6 +14,7 @@ import {
   FormLabel,
   FormMessage,
   FileUploader,
+  Textarea,
 } from '@/components';
 import { useInvalidateMeQuery, useMeQuery, useUpdateMeMutation, useUploadImageMutation } from '@/hooks';
 import { useRouter } from 'nextjs-toploader/app';
@@ -80,6 +81,24 @@ export const ProfileForm = () => {
         <div className='flex flex-col gap-5'>
           <FormField
             control={form.control}
+            name='file'
+            render={({ field }) => (
+              <FormItem className='flex'>
+                <FormControl>
+                  <FileUploader
+                    type='profile'
+                    mediaUrl={meQuery.data?.image?.url ?? undefined}
+                    {...field}
+                    disabled={uploadImageMutation.isPending || updateMeMutation.isPending}
+                  />
+                </FormControl>
+                <FormMessage className='shad-form_message' />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
             name='firstName'
             render={({ field }) => (
               <FormItem>
@@ -122,30 +141,16 @@ export const ProfileForm = () => {
 
           <FormField
             control={form.control}
-            name='file'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className='shad-form_label'>Photo</FormLabel>
-                <FormControl>
-                  <FileUploader
-                    mediaUrl={meQuery.data?.image?.url ?? undefined}
-                    {...field}
-                    disabled={uploadImageMutation.isPending || updateMeMutation.isPending}
-                  />
-                </FormControl>
-                <FormMessage className='shad-form_message' />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
             name='bio'
             render={({ field }) => (
               <FormItem>
                 <FormLabel className='shad-form_label'>Bio</FormLabel>
                 <FormControl>
-                  <Input placeholder='Tell us about yourself' type='text' className='shad-input' {...field} />
+                  <Textarea
+                    placeholder='Tell us about yourself'
+                    className='shad-textarea custom-scrollbar'
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage className='shad-form_message' />
               </FormItem>
