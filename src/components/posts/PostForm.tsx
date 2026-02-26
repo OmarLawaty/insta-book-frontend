@@ -17,7 +17,7 @@ import {
   FileUploader,
 } from '@/components';
 import { useCreatePostMutation, usePostQuery, useUpdatePostMutation, useUploadImageMutation } from '@/hooks';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'nextjs-toploader/app';
 import { AxiosError } from 'axios';
 
 type CreatePostFormProps =

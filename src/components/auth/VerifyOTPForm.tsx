@@ -19,7 +19,7 @@ import {
 } from '@/components';
 import { REGEXP_ONLY_DIGITS } from 'input-otp';
 import { getSearchParams } from '@/helpers';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'nextjs-toploader/app';
 
 const defaultValues: VerifyOTPSchema = {
   otp: '',

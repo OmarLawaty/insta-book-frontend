@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForgotPasswordMutation } from '@/hooks';
 import { forgotPasswordSchema, ForgotPasswordSchema } from '@/api';
 import { Button, Input, Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'nextjs-toploader/app';
 
 const defaultValues: ForgotPasswordSchema = {
   email: '',
