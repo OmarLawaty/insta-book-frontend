@@ -24,3 +24,9 @@ export const removeAccessToken = () => {
 
   cookies.remove('authToken');
 };
+
+export const getIsLoggedIn = async () => {
+  const token = await getAccessToken();
+
+  return !!token;
+};

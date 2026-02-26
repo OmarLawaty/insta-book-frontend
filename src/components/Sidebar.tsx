@@ -12,7 +12,9 @@ export const Sidebar = () => {
   const pathname = usePathname();
 
   const meQuery = useMeQuery();
-  const { logout } = useLogin();
+  const { logout, isLoggedIn } = useLogin();
+
+  console.log(isLoggedIn);
 
   // If there's an error fetching the current user, we can assume the user is not authenticated.
   if (meQuery.isError) return null;
@@ -26,14 +28,18 @@ export const Sidebar = () => {
           <Image src='/assets/images/logo.svg' alt='logo' width={170} height={36} />
         </Link>
 
-        {isPending ? (
+        {isPending && isLoggedIn ? (
           <div className='h-14'>
             <Spinner />
           </div>
         ) : (
           <Link href={`/profile`} className='flex gap-3 items-center'>
             <Image
-              src={meQuery.data.image?.url || '/assets/icons/profile-placeholder.svg'}
+              src={
+                isLoggedIn
+                  ? meQuery.data!.image?.url || '/assets/icons/profile-placeholder.svg'
+                  : '/assets/icons/profile-placeholder.svg'
+              }
               alt='profile'
               width={56}
               height={56}
@@ -42,10 +48,14 @@ export const Sidebar = () => {
               loading='eager'
             />
             <div className='flex flex-col'>
-              <p className='body-bold'>{getCombinedUserName(meQuery.data.firstName, meQuery.data.lastName)}</p>
-              <p className='text-xs font-normal text-light-3' title={meQuery.data.email}>
-                {meQuery.data.email.length > 21 ? meQuery.data.email.substring(0, 21) + '...' : meQuery.data.email}
+              <p className='body-bold'>
+                {isLoggedIn ? getCombinedUserName(meQuery.data!.firstName, meQuery.data!.lastName) : 'Guest'}
               </p>
+              {isLoggedIn && (
+                <p className='text-xs font-normal text-light-3' title={meQuery.data!.email}>
+                  {meQuery.data!.email.length > 21 ? meQuery.data!.email.substring(0, 21) + '...' : meQuery.data!.email}
+                </p>
+              )}
             </div>
           </Link>
         )}
@@ -72,11 +82,19 @@ export const Sidebar = () => {
         </ul>
       </div>
 
-      <Button variant='ghost' className='shad-button_ghost' onClick={logout}>
-        <Image src='/assets/icons/logout.svg' alt='logout' width={24} height={24} />
+      {isLoggedIn ? (
+        <Button variant='ghost' className='shad-button_ghost' onClick={logout}>
+          <Image src='/assets/icons/logout.svg' alt='logout' width={24} height={24} />
 
-        <p className='small-medium lg:base-medium'>Logout</p>
-      </Button>
+          <p className='small-medium lg:base-medium'>Logout</p>
+        </Button>
+      ) : (
+        <Link href='/login' className='shad-button_ghost py-2 px-4'>
+          <Image src='/assets/icons/logout.svg' alt='login' style={{ rotate: '180deg' }} width={24} height={24} />
+
+          <p className='small-medium lg:base-medium'>Login</p>
+        </Link>
+      )}
     </nav>
   );
 };

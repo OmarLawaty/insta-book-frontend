@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 
-import { useLikePostMutation, useSetPostQueryData } from '@/hooks';
+import { useLikePostMutation, useLogin, useSetPostQueryData } from '@/hooks';
 import { Button } from './Button';
 import { Post } from '@/api';
 
@@ -14,6 +14,7 @@ interface LikePostButtonProps extends Post {
 export const LikePostButton = ({ onLikeStatusChange, ...props }: LikePostButtonProps) => {
   const [post, setPost] = useState<Post>(props);
 
+  const { isLoggedIn } = useLogin();
   const setPostQueryData = useSetPostQueryData();
   const likePostMutation = useLikePostMutation({
     onSuccess: updatedPost => {
@@ -29,6 +30,7 @@ export const LikePostButton = ({ onLikeStatusChange, ...props }: LikePostButtonP
       onClick={() => {
         likePostMutation.mutate(props.id);
       }}
+      isDisabled={!isLoggedIn}
       isLoading={likePostMutation.isPending}
       icon={<Image src={iconSrc} alt='like' width={20} height={20} />}
       className='flex gap-2'

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 
-import { useSavePostMutation, useSetPostQueryData } from '@/hooks';
+import { useLogin, useSavePostMutation, useSetPostQueryData } from '@/hooks';
 import { Button } from './Button';
 import { Post } from '@/api';
 
@@ -16,6 +16,7 @@ interface SavePostParams {
 export const SavePostButton = ({ postId, saved, onSaveStatusChange }: SavePostParams) => {
   const [post, setPost] = useState<Post | undefined>(undefined);
 
+  const { isLoggedIn } = useLogin();
   const setPostQueryData = useSetPostQueryData();
   const savePostMutation = useSavePostMutation({
     onSuccess: updatedPost => {
@@ -32,6 +33,7 @@ export const SavePostButton = ({ postId, saved, onSaveStatusChange }: SavePostPa
       onClick={() => {
         savePostMutation.mutate(postId);
       }}
+      isDisabled={!isLoggedIn}
       isLoading={savePostMutation.isPending}
       icon={<Image src={iconSrc} alt='save' width={20} height={20} />}
     />

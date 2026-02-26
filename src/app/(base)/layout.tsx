@@ -2,14 +2,17 @@ import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query
 
 import { Bottombar, Sidebar, Topbar } from '@/components';
 import { useMeQuery } from '@/hooks';
+import { getIsLoggedIn } from '@/api/backend/helpers';
 
 export default async function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery({
-    queryKey: useMeQuery.queryKey(),
-    queryFn: useMeQuery.queryFn,
-  });
+  if (await getIsLoggedIn()) {
+    await queryClient.prefetchQuery({
+      queryKey: useMeQuery.queryKey(),
+      queryFn: useMeQuery.queryFn,
+    });
+  }
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
