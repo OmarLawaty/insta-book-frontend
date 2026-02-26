@@ -12,10 +12,12 @@ export const useLogin = () => {
   const isLoggedInQuery = useIsLoggedInQuery();
   const invalidateMeQuery = useInvalidateIsLoggedInQuery();
 
+  const isLoggedIn = isLoggedInQuery.data ?? false;
+
   const login = async (accessToken: string) => {
     setAccessToken(accessToken);
 
-    await invalidateMeQuery();
+    if (isLoggedIn) await invalidateMeQuery();
 
     const fromEncodedPath = getSearchParams().get('from');
     if (fromEncodedPath) return router.replace(decodeURIComponent(fromEncodedPath));
@@ -26,7 +28,7 @@ export const useLogin = () => {
   const logout = async () => {
     removeAccessToken();
 
-    await invalidateMeQuery();
+    if (isLoggedIn) await invalidateMeQuery();
 
     router.replace('/login');
   };
@@ -34,6 +36,6 @@ export const useLogin = () => {
   return {
     login,
     logout,
-    isLoggedIn: isLoggedInQuery.data ?? false,
+    isLoggedIn,
   };
 };
