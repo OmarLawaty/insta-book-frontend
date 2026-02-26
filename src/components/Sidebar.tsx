@@ -14,8 +14,6 @@ export const Sidebar = () => {
   const meQuery = useMeQuery();
   const { logout, isLoggedIn } = useLogin();
 
-  console.log(isLoggedIn);
-
   // If there's an error fetching the current user, we can assume the user is not authenticated.
   if (meQuery.isError) return null;
 

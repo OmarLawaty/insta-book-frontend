@@ -1,10 +1,9 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-
 import { getSearchParams } from '@/helpers';
 import { useInvalidateIsLoggedInQuery, useIsLoggedInQuery } from './auth/useIsLoggedInQuery';
 import { removeAccessToken, setAccessToken } from '@/api/backend/helpers';
+import { useRouter } from 'nextjs-toploader/app';
 
 export const useLogin = () => {
   const router = useRouter();
