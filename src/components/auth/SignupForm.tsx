@@ -4,7 +4,7 @@ import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { useSignupMutation } from '@/hooks';
-import { signupSchema, SignupSchema } from '@/api';
+import { passwordValidation, signupSchema, SignupSchema } from '@/api';
 import { Button, Input, Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components';
 
 const defaultValues: SignupSchema = {
@@ -112,7 +112,13 @@ export const SignupForm = () => {
                   />
                 </FormControl>
 
-                <FormMessage />
+                {passwordValidation
+                  .filter(({ regex }) => !regex.test(field.value))
+                  .map(({ message }) => (
+                    <p key={message} className='text-xs font-normal md:text-sm text-light-3'>
+                      {message}
+                    </p>
+                  ))}
               </FormItem>
             )}
           />
