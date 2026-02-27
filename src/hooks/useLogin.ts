@@ -1,15 +1,16 @@
 'use client';
 
 import { getSearchParams } from '@/helpers';
-import { useInvalidateIsLoggedInQuery, useIsLoggedInQuery } from './auth/useIsLoggedInQuery';
+import { useIsLoggedInQuery } from './auth/useIsLoggedInQuery';
 import { removeAccessToken, setAccessToken } from '@/api/backend/helpers';
 import { useRouter } from 'nextjs-toploader/app';
+import { useInvalidateMeQuery } from './useMeQuery';
 
 export const useLogin = () => {
   const router = useRouter();
 
   const isLoggedInQuery = useIsLoggedInQuery();
-  const invalidateMeQuery = useInvalidateIsLoggedInQuery();
+  const invalidateMeQuery = useInvalidateMeQuery();
 
   const isLoggedIn = isLoggedInQuery.data ?? false;
 
@@ -26,8 +27,6 @@ export const useLogin = () => {
 
   const logout = async () => {
     removeAccessToken();
-
-    if (isLoggedIn) await invalidateMeQuery();
 
     router.replace('/login');
   };
