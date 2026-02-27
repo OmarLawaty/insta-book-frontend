@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
+import { headers } from 'next/headers';
 import './globals.css';
 
 import { Providers } from '@/components';
 import NextTopLoader from 'nextjs-toploader';
+import { isLoggedInHeaderKey } from '@/proxy/const';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -20,11 +22,14 @@ export const metadata: Metadata = {
   description: 'Next generation social media app that combines the best features of Instagram and Facebook.',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const requestHeaders = await headers();
+  const loginState = requestHeaders.get(isLoggedInHeaderKey);
+
   return (
     <html lang='en'>
       <body
@@ -32,7 +37,7 @@ export default function RootLayout({
       >
         <NextTopLoader color='#877eff' />
 
-        <Providers>{children}</Providers>
+        <Providers isLoggedIn={loginState === 'true'}>{children}</Providers>
       </body>
     </html>
   );

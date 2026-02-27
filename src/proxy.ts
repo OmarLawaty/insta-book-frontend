@@ -3,9 +3,14 @@ import type { NextRequest } from 'next/server';
 
 import { useIsLoggedInQuery } from './hooks';
 import { guestOnlyRoutes, publicRoutes, protectedRoutes } from './proxy/routes';
+import { isLoggedInHeaderKey } from './proxy/const';
 
 export const proxy = async (req: NextRequest) => {
   const isLoggedIn = !!(await useIsLoggedInQuery.queryFn());
+
+  const requestHeaders = new Headers(req.headers);
+  requestHeaders.set(isLoggedInHeaderKey, String(isLoggedIn));
+
   const isGuestOnlyPath = guestOnlyRoutes.some(path => req.nextUrl.pathname.startsWith(path));
   const isPublicPath = publicRoutes.some(path => {
     if (path === '/') return req.nextUrl.pathname === path;
@@ -29,7 +34,7 @@ export const proxy = async (req: NextRequest) => {
     return NextResponse.redirect(req.nextUrl);
   }
 
-  return NextResponse.next();
+  return NextResponse.next({ request: { headers: requestHeaders } });
 };
 
 export const config = {
