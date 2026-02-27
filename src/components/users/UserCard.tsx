@@ -28,8 +28,8 @@ export const UserCard = ({ id, image, firstName, lastName, likesCount, isMe }: T
         <p className='small-regular text-light-3 text-center line-clamp-1'>Likes: {likesCount}</p>
       </div>
 
-      <Button disabled={isMe || !isLoggedIn} type='button' size='sm' className='shad-button_primary px-5'>
-        Follow
+      <Button disabled={!isLoggedIn} type='button' size='sm' className='shad-button_primary px-5'>
+        {isMe ? 'View' : 'Follow'}
       </Button>
     </Link>
   );
