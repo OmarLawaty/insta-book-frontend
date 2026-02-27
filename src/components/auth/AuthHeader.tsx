@@ -1,5 +1,7 @@
 import Image from 'next/image';
 
+import { Link } from '../Link';
+
 interface AuthHeaderProps {
   title: string;
   description: string;
@@ -7,7 +9,9 @@ interface AuthHeaderProps {
 
 export const AuthHeader = ({ title, description }: AuthHeaderProps) => (
   <header className='flex flex-col items-center text-center gap-5'>
-    <Image src='/assets/images/logo.svg' width={173} height={36} alt='logo' />
+    <Link href='/' className='flex gap-3 items-center'>
+      <Image src='/assets/images/logo.svg' width={173} height={36} alt='logo' />
+    </Link>
 
     <div className='flex flex-col gap-2'>
       <h2 className='h3-bold md:h2-bold'>{title}</h2>
